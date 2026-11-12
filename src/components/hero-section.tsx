@@ -1,32 +1,62 @@
-import { ArrowRight, Sparkle } from "@phosphor-icons/react"
+import { ArrowRight } from "@phosphor-icons/react"
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+
+/**
+ * Background is a swappable photo slot: drop a text-free panorama at
+ * public/images/hero.jpg (India skyline → Mt Fuji → pagoda, ~2400px wide).
+ * Until then the sunrise gradient below is what shows.
+ */
+const HERO_IMAGE = "/images/hero.jpg"
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-6 pt-20 pb-24 sm:pt-28 sm:pb-32">
+    <section className="relative isolate overflow-hidden">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[36rem] bg-[radial-gradient(60%_60%_at_50%_0%,var(--color-primary)/12%,transparent)]"
+        className="absolute inset-0 -z-20 bg-[linear-gradient(180deg,#bcd3ec_0%,#e9eef6_38%,#fbe3c4_72%,#f3c48c_100%)]"
       />
-      <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-        <Badge variant="secondary" className="h-6 gap-1.5 px-3 text-[0.7rem] tracking-wide uppercase">
-          <Sparkle weight="fill" className="text-primary" />
-          Arriving soon
-        </Badge>
-        <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-          We're launching soon.
-        </h1>
-        <p className="max-w-xl text-base text-muted-foreground sm:text-lg">
-          Jiban Enterprise is putting the finishing touches on something new.
-          Check back soon, or leave us a message and we'll keep you posted.
-        </p>
-        <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
-          <Button size="lg" render={<a href="#contact" />}>
-            Get in touch
+      <img
+        src={HERO_IMAGE}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 -z-10 size-full object-cover object-right"
+        onError={(e) => (e.currentTarget.style.display = "none")}
+      />
+      {/* keeps the left text column readable over any photo */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-linear-to-r from-white/80 via-white/40 to-transparent"
+      />
+
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 md:grid-cols-[1.2fr_1fr] md:py-24 lg:py-28">
+        <div className="flex flex-col items-start gap-5">
+          <p className="text-xs font-semibold tracking-[0.12em] text-navy uppercase">
+            Welcome to Jiban Enterprise
+          </p>
+          <h1 className="font-heading text-4xl leading-tight font-semibold text-navy sm:text-5xl">
+            Your Trusted Partner{" "}
+            <br className="hidden sm:block" />
+            for a Smarter Tomorrow
+          </h1>
+          <p className="max-w-md text-base leading-relaxed text-navy/90">
+            From e-commerce and consumer products to digital solutions,
+            import-export, and more — we connect people, ideas and
+            opportunities across India, Japan and beyond.
+          </p>
+          <Button size="lg" className="mt-2 h-11 px-6 shadow-md" render={<a href="#services" />}>
+            Explore Our Services
             <ArrowRight data-icon="inline-end" />
           </Button>
+        </div>
+
+        <div className="hidden items-start justify-center pt-4 md:flex">
+          <p className="-rotate-12 font-script text-4xl leading-tight text-navy lg:text-5xl">
+            Building Trust
+            <br />
+            <span className="ml-6">Across Borders</span>
+            <span className="mt-1 ml-10 block h-0.5 w-48 -rotate-3 rounded-full bg-gold" />
+          </p>
         </div>
       </div>
     </section>
